@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>music list</title>
+	
+	<style>
+	
+	#sbody {
+		background-color: #000; margin: 50px auto; min-width: 900px; max-width:50%; padding:10px;
+	}
+	
+	.songdiv {
+		width: 720px; height: 120px; margin: 0 auto; background-color: red;
+	}
+	
+	</style>
+  <head>
+  <body>
+	
+	<div id="sbody">
+		<span id="spansongs"></span>
+	</div>
+	
+	<script>
+	
+	var songlist = [
+		{ gooid: "1Wowhp_ZaAsvP3Peqm5gdw9ro1aTuI6_N", name: "Persona 5 - Alleycat" },
+		{ gooid: "1wWLKTc_Nf12b1hDNLEELhoC3Q6XfRsFC", name: "Persona 5 - Beneath the Mask" },
+		{ gooid: "1_jvkGidVLEErvxNXheh8va1_AohimpUl", name: "Persona 5 - Butterfly Kiss" },
+		{ gooid: "1K8WjJeejbWk39ely3Acxu2KN1ptAQ3IP", name: "Persona 5 - Collapse of Lust" },
+		{ gooid: "1pqy8dHk_enZ9ekbvzo4pv3zwoZENR7fE", name: "Persona 5 - Escape" },
+		{ gooid: "1_TS066RxMMGbKJTdFNODN5dywIKZPUYC", name: "Persona 5 - Last Surprise" },
+		{ gooid: "1wEoDKTd9md3AuVnRpaCAmQjTWfBp1mGQ", name: "Persona 5 - Life Will Change" },
+		{ gooid: "1qzaWswpiIzNbWzzOPYCmd6eDvIVXgWG_", name: "Persona 5 - Phantom" },
+		{ gooid: "1XAb6KbZ25z9TaD9Q6TUpLua2KbC9VXxJ", name: "Persona 5 - The Collapse of Wrath" },
+		{ gooid: "1j5dOp0enOYagaaejwiIe6Zdk6Guxa1t2", name: "Persona 5 - Wake Up, Get Up, Get Out There" },
+		{ gooid: "1b3drVsG9wH7YSmJa1hykP2jjvWYUXs18", name: "Persona 5 Dancing Star Night (Jazztronik Remix) - Last Surprise" },
+	];
+	var url = "https://docs.google.com/uc?export=open&id=";
+	
+	var audio = [""];
+	
+	function play(i){
+		if (audio[i] == "" || audio[i] == null) {
+			audio[i] = new Audio();
+		}
+		y = 0;
+		while(y < songlist.lenght){
+			pause(y);
+			y++;
+		}
+		if (audio[i].src != (url+songlist[i].gooid)) audio[i].src = url+songlist[i].gooid;
+		audio[i].volume = 0.05;
+		audio[i].play();
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.backgroundColor = "";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.color = "black";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.backgroundColor = "black";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.color = "white";
+	}
+	function pause(i){
+		if (audio[i].paused == false) {
+			audio[i].pause();
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.backgroundColor = "";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.color = "black";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.backgroundColor = "black";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.color = "white";
+		}
+	}
+	
+	var spansongs = document.getElementById('spansongs');
+	var htmlstring = "";
+	var iterator = 0;
+	while (iterator < songlist.length){
+		htmlstring += '<div class="songdiv">'+
+			'<div class="songname"><p>'+songlist[iterator].name+'</p></div>'+
+			'<button onclick="play('+iterator+')" class="playbutton">play</button>'+
+			'<button onclick="pause('+iterator+')" class="pausebutton">pause</button>'+
+		'</div>';
+		iterator++;
+	}
+	
+	spansongs.innerHTML = htmlstring;
+	
+	</script>
+	
+  </body>
+</html>

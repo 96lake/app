@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+        body{
+            margin: 0px;
+            font-family: monospace;
+        }
+        .header{
+            width: 100%;
+            height: 150px;
+            background: url('./images/bg.jpg') center center repeat;
+            background-size: auto;
+        }
+            .hbox{
+                position: relative;
+                width: 1000px;
+                height: 100%;
+                margin: 0 auto;
+            }
+            .hbox-item{
+                font-size: 30px;
+                margin-left: 50px;
+                padding: 0 10px;
+                position: absolute;
+                bottom: 0px;
+                background-image: linear-gradient(180deg, #ffffff, #7db5ff);
+                border: 3px outset rgb(134, 134, 134);
+                border-radius: 5px;
+                text-decoration: none;
+                color: black;
+            }
+            .hbox-item:hover{
+                cursor: pointer;
+            }
+        .bigbox{
+            width: 1000px;
+            margin: 30px auto 0px auto;
+        }
+            .sidenav{
+                float: right;
+            }
+                .sidenav-item{
+                    cursor: pointer;
+                    margin-top: 10px;
+                    display: flex;
+                }
+                .sidenav-item:hover{
+                    background-color: #1111;
+                }
+                .sidenav-item p{
+                    margin: 30px 20px 0px 20px;
+                    color: black;
+                    text-decoration: none;
+                    display: inline;
+                }
+                .sidenav-item img{
+                    height:80px;
+                }
+            .content{
+                float: left;
+                max-width: 740px;
+            }
+            .side-separator{
+                float: left;
+                border-left: 6px solid green;
+                height: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+        <script>
+            
+            var listOfIndexes = [
+                "MyArt",
+                "Anime",
+                "Characters",
+                "Music",
+                "Games",
+                "Videos",
+                "Memes",
+                "Setup",
+            ];
+
+            var tempstring = "var sidenavItems = [";
+            listOfIndexes.forEach(element => {
+                tempstring += '{"name":"'+element+'","img":"./images/'+element.toLowerCase()+'.jpg","link":"./'+element.toLowerCase()+'/index.html"},';
+            });
+            tempstring += "];";
+            eval(tempstring);
+
+            /*var sidenavItems = [
+                {"name":"Anime/Manga",  "img":"./images/anime.jpg",         "link":"./anime/index.html"},
+                {"name":"Art",          "img":"./images/art.jpg",           "link":"./art/index.html"},
+                {"name":"Characters",   "img":"./images/characters.jpg",    "link":"./characters/index.html"},
+                {"name":"Music",        "img":"./images/music.jpg",         "link":"./music/index.html"},
+                {"name":"Games",        "img":"./images/games.jpg",         "link":"./games/index.html"},
+                {"name":"Videos",       "img":"./images/videos.jpg",        "link":"./videos/index.html"},
+                {"name":"Memes/ＭＡＤ", "img":"./images/memes.jpg",         "link":"./memes/index.html"},
+                {"name":"Setup",        "img":"./images/setup.jpg",         "link":"./setup/index.html"},
+                
+            ];*/
+
+
+
+        </script>
+        
+        <div class="header">
+            <div class="hbox">
+                <a class="hbox-item" href='./index.html'>Home</a>
+                <a class="hbox-item" href='./news.html' style="left:100px">News</a>
+                <a class="hbox-item" href='./watch.html' style="left:200px">Watch</a>
+                <a class="hbox-item" href='./about.html' style="left:315px">About</a>
+            </div>
+        </div>
+        <div class="bigbox">
+            <div class="sidenav">
+                <span id="sidenav-span"></span>
+            </div>
+            <div class="content">
+                <p>if you don't know where to start, <a href="javascript: location.href = sidenavItems[(Math.floor(Math.random()*sidenavItems.length))].link;">get a random page</a></p>
+                <h1>this is a site </h1>
+            </div>
+            <div class="side-separator"></div>
+        </div>
+
+        <script>
+            
+            var element;
+            var htmlstring = "";
+            var i = 0;
+            var item;
+
+            i=0;
+            htmlstring="";
+            element = document.getElementById("sidenav-span");
+            while(i < sidenavItems.length){
+                item = sidenavItems[i];
+                if(item.img == ""){
+                    item.img = "./images/other.jpg";
+                }
+                htmlstring +=
+                `<div class="sidenav-item" onclick="location.href = '${item.link}'">`+
+                    `<img src="${item.img}">`+
+                    `<p>${item.name}</p>`+
+                '</div>';
+                i++;
+            }
+            element.innerHTML = htmlstring;
+            
+        </script>
+
+    </body>
+</html>

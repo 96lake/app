@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style>
+        body{ background-color: #1e1e1e; }
+		.imgdiv img{ height: 300px; margin: 3px 5px; height: 300px; }
+        .imgdiv{ position: relative; float: left; }
+        .imgname{ padding: 3px 6px; color: white; background-color: black; position: absolute; bottom: 8px; left: 16px; }
+	</style>
+</head>
+<body>
+    <span id="img_span"></span>
+	<script>
+	
+    $(document).ready(function(){
+        var apilink = "https://api.github.com/repos/96lake/myart";
+        $.ajax({
+            url: apilink+"/commits", method: "GET", dataType: "JSON", success: function(data){
+                document.getElementById("img_span").innerHTML = "";
+                $.ajax({
+                    url: apilink+"/git/trees/"+data[0].sha, method: "GET", dataType: "JSON", success: function(data){
+                        var i = 0;
+                        while(i < data.tree.length){
+                            document.getElementById("img_span").innerHTML += `
+                            <div class="imgdiv">
+                                <img src="https://raw.githubusercontent.com/96lake/myart/master/`+data.tree[i].path+`">
+                                <div class="imgname">`+data.tree[i].path+`</div>
+                            </div>`;
+                            i++;
+                        }
+                    }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
+                });
+            }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
+        });
+    });
+		
+	</script>
+</body>
+</html>
