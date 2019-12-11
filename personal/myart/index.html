@@ -7,10 +7,12 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<style>
-        body{ background-color: #1e1e1e; }
+        body{ background-color: #1e1e1e; font-family: monospace; }
 		.imgdiv img{ height: 300px; margin: 3px 5px; height: 300px; }
         .imgdiv{ position: relative; float: left; }
-        .imgname{ padding: 3px 6px; color: white; background-color: black; position: absolute; bottom: 8px; left: 16px; }
+        .imgname{ padding: 3px 6px; color: white; font-size: 16px; background-color: black; position: absolute; bottom: 8px; left: 16px; }
+        @media screen and (max-width: 900px) { .imgdiv img{ height: 200px; } .imgname{ font-size: 12px; } }
+        @media screen and (max-width: 500px) { .imgdiv img{ height: 150px; } .imgname{ font-size: 10px; } }
 	</style>
 </head>
 <body>
