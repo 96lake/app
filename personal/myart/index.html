@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>96lake's art</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<style>
@@ -20,24 +20,32 @@
 	<script>
 	
     $(document).ready(function(){
-        var apilink = "https://api.github.com/repos/96lake/myart";
-        $.ajax({
-            url: apilink+"/commits", method: "GET", dataType: "JSON", success: function(data){
-                document.getElementById("img_span").innerHTML = "";
-                $.ajax({
-                    url: apilink+"/git/trees/"+data[0].sha, method: "GET", dataType: "JSON", success: function(data){
-                        var i = 0;
+        var apilink = "https://api.github.com/repos/96lake/db";
+        document.getElementById("img_span").innerHTML = "Loading..."; document.getElementById("img_span").style.color = "white";
+
+        $.ajax({ url: apilink+"/commits", method: "GET", dataType: "JSON", success: function(data){
+            $.ajax({ url: apilink+"/git/trees/"+data[0].sha, method: "GET", dataType: "JSON", success: function(data){
+                var i = 0;
+                while(data.tree.length > i){ if (data.tree[i].path == "app") break; i++; }
+                alert(i);
+                $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, method: "GET", dataType: "JSON", success: function(data){
+                    i = 0;
+                    while(data.tree.length > i){ if (data.tree[i].path == "myart") break; i++; }
+                    $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, method: "GET", dataType: "JSON", success: function(data){
+                        document.getElementById("img_span").innerHTML = "";
+                        i = 0;
                         while(i < data.tree.length){
                             document.getElementById("img_span").innerHTML += `
                             <div class="imgdiv">
-                                <img src="https://raw.githubusercontent.com/96lake/myart/master/`+data.tree[i].path+`">
+                                <img src="https://raw.githubusercontent.com/96lake/db/master/app/myart/`+data.tree[i].path+`">
                                 <div class="imgname">`+data.tree[i].path+`</div>
                             </div>`;
                             i++;
                         }
-                    }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
-                });
-            }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
+                    }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
+                }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
+            }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
+        }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
         });
     });
 		
