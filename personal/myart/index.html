@@ -27,7 +27,6 @@
             $.ajax({ url: apilink+"/git/trees/"+data[0].sha, method: "GET", dataType: "JSON", success: function(data){
                 var i = 0;
                 while(data.tree.length > i){ if (data.tree[i].path == "app") break; i++; }
-                alert(i);
                 $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, method: "GET", dataType: "JSON", success: function(data){
                     i = 0;
                     while(data.tree.length > i){ if (data.tree[i].path == "myart") break; i++; }
