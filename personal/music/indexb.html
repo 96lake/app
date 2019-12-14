@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>96lake's music list</title>
+	
+	<style>
+	
+	#sbody {
+		background-color: #000; margin: 50px auto; min-width: 900px; max-width:50%; padding:10px;
+	}
+	
+	.songdiv {
+		width: 720px; height: 120px; margin: 0 auto; background-color: red;
+	}
+	
+	</style>
+  <head>
+  <body>
+	
+	<div id="sbody">
+		<span id="spansongs"></span>
+	</div>
+	
+	<script>
+	
+	var audio = [""];
+	
+	function play(i){
+		if (audio[i] == "" || audio[i] == null) {
+			audio[i] = new Audio();
+		}
+		y = 0;
+		while(y < songs.lenght){
+			pause(y);
+			y++;
+		}
+		if (audio[i].src != (songs[i])) audio[i].src = songs[i];
+		audio[i].volume = 0.1;
+		audio[i].play();
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.backgroundColor = "";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.color = "black";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.backgroundColor = "black";
+		document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.color = "white";
+	}
+	function pause(i){
+		if (audio[i].paused == false) {
+			audio[i].pause();
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.backgroundColor = "";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("playbutton")[0].style.color = "black";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.backgroundColor = "black";
+			document.getElementsByClassName("songdiv")[i].getElementsByClassName("pausebutton")[0].style.color = "white";
+		}
+	}
+	
+	var songs = [""];
+
+	$(document).ready(function(){
+		var apilink = "https://api.github.com/repos/96lake/db";
+		
+		$.ajax({url: apilink+"/commits", dataType: "JSON", success: function(data){
+			$.ajax({url: apilink+"/git/trees/"+data[0].sha, dataType: "JSON", success: function(data){
+				var i = 0;
+                while(data.tree.length > i){ if (data.tree[i].path == "app") break; i++; }
+				$.ajax({url: apilink+"/git/trees/"+data.tree[i].sha, success: function(data){
+					var i = 0;
+	                while(data.tree.length > i){ if (data.tree[i].path == "songs") break; i++; }
+					$.ajax({url: apilink+"/git/trees/"+data.tree[i].sha, success: function(data){
+						var htmlstring = "";
+						var i = 0;
+						data.tree.forEach(el => {
+							songs[i] = "https://raw.githubusercontent.com/96lake/db/master/app/songs/"+el.path;
+							console.log(songs);
+							htmlstring += '<div class="songdiv">'+
+								'<div class="songname"><p>'+el.path+'</p></div>'+
+								'<button onclick="play('+i+')" class="playbutton">play</button>'+
+								'<button onclick="pause('+i+')" class="pausebutton">pause</button>'+
+							'</div>';
+							i++;
+						});
+						document.getElementById('spansongs').innerHTML = htmlstring;
+					}, error: function(jqXHR, textResponse, errorThrown){ alert("error"); }});
+				}, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }});
+			}, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }});
+		}, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }});
+	});
+	
+	</script>
+	
+  </body>
+</html>

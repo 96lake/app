@@ -23,14 +23,14 @@
         var apilink = "https://api.github.com/repos/96lake/db";
         document.getElementById("img_span").innerHTML = "Loading..."; document.getElementById("img_span").style.color = "white";
 
-        $.ajax({ url: apilink+"/commits", method: "GET", dataType: "JSON", success: function(data){
-            $.ajax({ url: apilink+"/git/trees/"+data[0].sha, method: "GET", dataType: "JSON", success: function(data){
+        $.ajax({ url: apilink+"/commits", dataType: "JSON", success: function(data){
+            $.ajax({ url: apilink+"/git/trees/"+data[0].sha, dataType: "JSON", success: function(data){
                 var i = 0;
                 while(data.tree.length > i){ if (data.tree[i].path == "app") break; i++; }
-                $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, method: "GET", dataType: "JSON", success: function(data){
+                $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
                     i = 0;
                     while(data.tree.length > i){ if (data.tree[i].path == "myart") break; i++; }
-                    $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, method: "GET", dataType: "JSON", success: function(data){
+                    $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
                         document.getElementById("img_span").innerHTML = "";
                         i = 0;
                         while(i < data.tree.length){
