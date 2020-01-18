@@ -71,6 +71,7 @@
         </style>
     </head>
     <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
             
             var listOfIndexes = [
@@ -120,7 +121,8 @@
             </div>
             <div class="content">
                 <p>if you don't know where to start, <a href="javascript: location.href = sidenavItems[(Math.floor(Math.random()*sidenavItems.length))].link;">get a random page</a></p>
-                <h1>this is a site </h1>
+                <h1>these are my profiles:</h1>
+                <span id="links"></span>
             </div>
             <div class="side-separator"></div>
         </div>
@@ -148,7 +150,20 @@
                 i++;
             }
             element.innerHTML = htmlstring;
-            
+            var data1;
+            $(document).ready(function(){
+                document.getElementById("links").innerHTML = "Loading...";
+
+                $.ajax({url:"https://raw.githubusercontent.com/96lake/db/master/app/links.json", dataType:"JSON", success: function(data){
+                    document.getElementById("links").innerHTML = "";
+                    i = 0;
+                    while(i < data.length){
+                        document.getElementById("links").innerHTML += `<p>`+data[i][0]+`: <a href="`+data[i][1]+`">`+data[i][1]+`</p>`;
+                        i++;
+                    }
+                }});
+            });
+
         </script>
 
     </body>
