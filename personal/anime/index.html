@@ -10,7 +10,7 @@
 			background-color: #0b0b0b;
 		}
 		.sbody {
-			color: #fff; margin: 50px auto; min-width: 900px; max-width:50%; padding:10px;
+			color: #fff; margin: 50px auto; width: 900px; padding:10px;
 		}
 		.header {
 			float: left;
@@ -381,7 +381,7 @@
 						'<p>start: '+item.start[0]+'/'+item.start[1]+'/'+item.start[2]+'</p>'+
 						'<p>finish: '+item.end[0]+'/'+item.end[1]+'/'+item.end[2]+'</p>'+
 						'<p>'+ndays+' '+(ndays == 1 ? 'day' : 'days')+' - '+item.score+'</p>'+
-						'<p class="readmore" onclick="readmore('+i+')">'+'▼ Read more'+'</p>'+
+						'<span class="span_readmore"></span>'+
 					'</div>'+
 				'</div>';
 				i++;
@@ -390,6 +390,17 @@
 			htmlstring += '';
 			
 			animelist.innerHTML = htmlstring;
+
+			(function(){
+				var i = 0;
+				var els = document.getElementsByClassName("animediv");
+				while(els.length > i){
+					if(els[i].clientHeight < els[i].scrollHeight){
+						document.getElementsByClassName("span_readmore")[i].innerHTML = '<p class="readmore" onclick="readmore('+i+')">'+'▼ Read more'+'</p>';
+					}
+					i++;
+				}
+			})();
 
 			page = 1;
 		}
@@ -432,6 +443,7 @@
 	var readmore = (i) => {
 		
 		var el = document.getElementsByClassName('animediv')[i];
+		var subel = document.getElementsByClassName('span_readmore')[i];
 		if (el.scrollHeight < el.style.height) {
 			return;
 		}
@@ -439,10 +451,10 @@
 
 		if (parseInt(el.style.height) == el.scrollHeight){
 			el.style.height = el.defaultHeight;
-			el.children[2].children[3].innerHTML = "▼ Read more";
+			subel.children[0].innerHTML = "▼ Read more";
 		} else {
 			el.style.height = el.scrollHeight+'px';
-			el.children[2].children[3].innerHTML = "▲ Read less";
+			subel.children[0].innerHTML = "▲ Read less";
 		}
 	}
 
@@ -467,7 +479,7 @@
 	});
 	changeCateg(0, initialList);
 	var boo = 0;
-	
+
 	</script>
 	
   </body>
