@@ -233,13 +233,18 @@
 
 	</script>
 	<script type="text/javascript" src="../../functions/js/subtractDays.js"></script>
-	<script type="text/javascript" src="../../log.js"></script>
 	<script>
 	
-	var last_update = document.getElementById('last_update');
-	var time = logtime.time.trim().split(":");
-	var date = logtime.date.split(" ")[1].split("/");
-	last_update.innerHTML = date[2]+"/"+date[1]+"/"+date[0]+" at "+time[0]+":"+time[1]+":"+parseInt(time[1]);
+	$(document).ready($.ajax({
+		url: "https://api.github.com/repos/96lake/db/commits",
+		dataType: "JSON",
+		success: function(data){
+			var datetime = data[0].commit.author.date;
+			var time = datetime.trim().split("T")[1].split("Z")[0].trim();
+			var date = datetime.trim().split("T")[0];
+			document.getElementById('last_update').innerHTML = date.replace(/-/g,"/") + " "+ time + " (UTC)";
+		}, error: function(jqXHR, textStatus, errorThrown){ alert("error"); }
+	}));
 	
 	var page = 0;
 	var initialList = animes;
