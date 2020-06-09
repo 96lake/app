@@ -20,7 +20,7 @@
 	<script>
 	
     $(document).ready(function(){
-        var apilink = "https://api.github.com/repos/96lake/db";
+        var apilink = "https://api.github.com/repos/calmylake/db";
         document.getElementById("img_span").innerHTML = "Loading..."; document.getElementById("img_span").style.color = "white";
 
         $.ajax({ url: apilink+"/commits", dataType: "JSON", success: function(data){
@@ -36,7 +36,7 @@
                         while(i < data.tree.length){
                             document.getElementById("img_span").innerHTML += `
                             <div class="imgdiv">
-                                <img src="https://raw.githubusercontent.com/96lake/db/master/app/myart/`+data.tree[i].path+`">
+                                <img src="https://raw.githubusercontent.com/calmylake/db/master/app/myart/`+data.tree[i].path+`">
                                 <div class="imgname">`+data.tree[i].path+`</div>
                             </div>`;
                             i++;
