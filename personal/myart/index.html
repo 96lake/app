@@ -18,62 +18,11 @@
 <body>
     <span id="img_span">
         <div class="imgdiv">
-            <img src="../../db/myart/sd/drawing/2020 06 08.jpg">
-            <div class="imgname">2020 06 08.jpg</div>
+            <a href="../../db/myart/hd/2020 06 08.png">
+                <img src="../../db/myart/sd/2020 06 08.jpg">
+            </a>
+            <div class="imgname">2020 06 08</div>
         </div>
     </span>
-	<script>
-
-
-        var i = 0;
-        while(i > 0){
-
-        }
-
-    /*
-	var imglist = [];
-    $(document).ready(function(){
-        var apilink = "https://api.github.com/repos/calmylake/app";
-        document.getElementById("img_span").innerHTML = "Loading..."; document.getElementById("img_span").style.color = "white";
-
-        $.ajax({ url: apilink+"/commits", dataType: "JSON", success: function(data){
-            $.ajax({ url: apilink+"/git/trees/"+data[0].sha, dataType: "JSON", success: function(data){
-                var i = 0;
-                while(data.tree.length > i){ if (data.tree[i].path == "db") break; i++; }
-                $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
-                    i = 0;
-                    while(data.tree.length > i){ if (data.tree[i].path == "myart") break; i++; }
-                    $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
-                        i = 0;
-                        while(data.tree.length > i){ if (data.tree[i].path == "sd") break; i++; }
-                        $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
-                            i = 0;
-                            while(data.tree.length > i){ if (data.tree[i].path == "drawing") break; i++; }
-                            $.ajax({ url: apilink+"/git/trees/"+data.tree[i].sha, dataType: "JSON", success: function(data){
-                                i = 0; while(i < data.tree.length){
-                                    imglist.push(`https://raw.githubusercontent.com/calmylake/app/master/db/myart/sd/drawing/`+data.tree[i].path);
-                                    i++;
-                                }
-                            }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-                        }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-                    }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-                }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-            }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-        }, error: function(jqXHR, textStatus, errorThrown){ alert("error"); } });
-
-        console.log(imglist.length);
-        var i = 0; while(i < imglist.length){
-            document.getElementById("img_span").innerHTML = "";
-            document.getElementById("img_span").innerHTML += `
-            <div class="imgdiv">
-                <img src="`+imglist+`">
-                <div class="imgname">`+imglist+`</div>
-            </div>`;
-            i++;
-        }
-
-    });
-    */
-	</script>
 </body>
 </html>
